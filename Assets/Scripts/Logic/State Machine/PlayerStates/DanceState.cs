@@ -26,12 +26,13 @@ namespace playerStateMachine
         public override void Enter()
         {
             _rig.weight = 0f;
-            _animator.SetBool("finished", true);
+            _animator.SetBool("dancing", true);
         }
 
         public override void Exit()
         {
             _rig.weight = 1f;
+            _animator.SetBool("dancing", false);
         }
 
         public override void UpdateState() { }

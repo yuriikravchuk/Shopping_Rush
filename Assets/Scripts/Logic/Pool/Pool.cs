@@ -1,48 +1,44 @@
-﻿using System;
+using pool;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace pool
+public abstract class Pool<T> : IObjectProvider<T> where T : Behaviour
 {
-    public class Pool<T>: IObjectProvider<T> where T : Behaviour
-	{
-		private readonly List<T> _objects;
-		private readonly Transform _parent;
+    public abstract T Get(Func<T, bool> predicate = null);
+    protected readonly List<T> Objects;
+    private readonly Transform _parent;
 
-		public Pool(Transform parent){
-            _objects = new List<T>();
-			_parent = parent;
-        }
+    public Pool(Transform parent = null)
+    {
+        Objects = new List<T>();
+        _parent = parent ?? new GameObject(typeof(MultiObjectsPool<T>).Name).transform;
+    }
 
-		public T Get(Func<T, bool> predicate = null)
-        {
-            T element = _objects.Where((predicate ?? (item => true)))
-				.FirstOrDefault(item => item.isActiveAndEnabled == false);
+    public void ReturnAll()
+    {
+        foreach (var element in Objects)
+            element.gameObject.SetActive(false);
+    }
 
-			element?.gameObject.SetActive(true);
-            return element;
-        }
+    public void Clear()
+    {
+        foreach (var element in Objects)
+            UnityEngine.Object.Destroy(element.gameObject);
 
-        public void ReturnAll()
-		{
-			foreach(var element in _objects)
-				element.gameObject.SetActive(false);
-		}
+        Objects.Clear();
+    }
 
-		public void Clear()
-        {
-			foreach (var element in _objects)
-                UnityEngine.Object.Destroy(element.gameObject);
+    public void Add(T element)
+    {
+        Objects.Add(element);
+        element.transform.SetParent(_parent);
+    }
 
-			_objects.Clear();
-		}
-
-		public void Add(T element)
-		{
-            _objects.Add(element);
-			//element.gameObject.SetActive(false);
-			element.transform.SetParent(_parent);
-        }
+    protected T Instantiate(T prefab)
+    {
+        T element = UnityEngine.Object.Instantiate(prefab);
+        Add(element);
+        return element;
     }
 }

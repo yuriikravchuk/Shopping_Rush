@@ -38,9 +38,9 @@ namespace gameStateMachine
 
         public override void Exit()
         {
+            //move camera back
             _ui.HideFinishUI();
             _playerStateMachine.TrySwitchState<DefaultState>();
-            //move camera back
             _conveyor.SetActive(true);
         }
 

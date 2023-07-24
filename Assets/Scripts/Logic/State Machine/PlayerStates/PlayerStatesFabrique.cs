@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -16,7 +15,6 @@ namespace playerStateMachine
 
         private void Awake()
         {
-            //var idleState = new IdleState(_animator);
             var playState = new DefaultState(_animator, _handGrip, _mission);
             var danceState = new DanceState(_animator, _rig);
             var states = new List<State> { playState, danceState };

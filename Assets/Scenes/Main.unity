@@ -1086,7 +1086,6 @@ GameObject:
   m_Component:
   - component: {fileID: 780662370}
   - component: {fileID: 780662371}
-  - component: {fileID: 780662372}
   m_Layer: 0
   m_Name: ProductsSpawner
   m_TagString: Untagged
@@ -1122,20 +1121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1.42
-  _provider: {fileID: 780662372}
---- !u!114 &780662372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780662369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1591daf9f2fe164095203f06e97d5bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: d3e720ca1f176924892e320a5ee86c2c, type: 2}
 --- !u!1001 &835318949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1970,7 +1955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigitbody: {fileID: 1486386231}
-  _speed: 0.0072
+  _speed: 0.0101
 --- !u!1 &1523510995
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,6 +2279,8 @@ MonoBehaviour:
   _ui: {fileID: 1752256032}
   _mission: {fileID: 1919974596}
   _cart: {fileID: 835318957}
+  _config: {fileID: 11400000, guid: d3e720ca1f176924892e320a5ee86c2c, type: 2}
+  _spawner: {fileID: 780662371}
 --- !u!114 &1810706420
 MonoBehaviour:
   m_ObjectHideFlags: 0

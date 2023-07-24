@@ -4,9 +4,12 @@ using UnityEngine;
 public class ProductsSpawner : MonoBehaviour
 {
     [SerializeField] private float _spawnRate = 2f;
-    [SerializeField] private ProductsProvider _provider;
-
+    
+    private IObjectProvider<Product> _provider;
     private float _lastSpawnedTime;
+
+    public void Init(IObjectProvider<Product> provider) 
+        => _provider = provider;
 
     private void OnValidate()
     {
@@ -23,7 +26,8 @@ public class ProductsSpawner : MonoBehaviour
     {
         if (Time.time > _lastSpawnedTime + _spawnRate)
         {
-            Product product = _provider.Get(Tools.GetRandomEnumValue<ProductType>());
+            ProductType productType = Tools.GetRandomEnumValue<ProductType>();
+            Product product = _provider.Get(item => item.Type == productType);
             product.transform.position = transform.position;
             _lastSpawnedTime = Time.time;
         }

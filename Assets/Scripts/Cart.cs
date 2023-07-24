@@ -9,7 +9,7 @@ public class Cart : MonoBehaviour
 
     private List<Product> _products;
 
-    private void Start() => _products = new List<Product>();
+    private void OnEnable() => _products = new List<Product>();
 
     private void OnTriggerEnter(Collider other)
     {
