@@ -41,12 +41,19 @@ public class HandGrip : MonoBehaviour
 
     public void PickProduct(Product product)
     {
+        if (_targetProduct != null)
+            return;
+
         _targetProduct = product;
         float startPickingTime = Time.time;
         StartCoroutine(Grab(startPickingTime));
     }
 
-    public void Unclench() => PickedProduct = null;
+    public void Unclench()
+    {
+        PickedProduct = null;
+        _targetProduct = null;
+    }
 
     private IEnumerator Grab(float startTime)
     {
