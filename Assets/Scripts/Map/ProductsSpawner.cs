@@ -28,6 +28,7 @@ public class ProductsSpawner : MonoBehaviour
         {
             ProductType productType = Tools.GetRandomEnumValue<ProductType>();
             Product product = _provider.Get(item => item.Type == productType);
+            product.ResetForces();
             product.transform.position = transform.position;
             _lastSpawnedTime = Time.time;
         }

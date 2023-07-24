@@ -14,9 +14,7 @@ public class MissionPresenter : MonoBehaviour
 
     public ProductType ProductType => _model.ProductType;
 
-    private Mission _model;
-
-    private void Awake() => _model = new();
+    private Mission _model = new();
 
     public void Set(ProductType type, int maxProductsCount)
     {

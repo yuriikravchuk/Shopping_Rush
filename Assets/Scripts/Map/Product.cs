@@ -10,5 +10,11 @@ namespace product
         public ProductType Type => _type;
 
         public void AddForce(Vector3 force) => _rigidbody.AddForce(force);
+
+        public void ResetForces()
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+        }
     }
 }

@@ -7,11 +7,11 @@ public class HandGrip : MonoBehaviour
 {
     [SerializeField] private Transform _handController;
     [Range(_minHandSpeed, _maxHandSpeed)]
-    [SerializeField] private float _handSpeed = 0.03f;
+    [SerializeField] private float _handSpeed = 10f;
     public Product PickedProduct { get; private set; }
     public event Action<Product> Picked;
 
-    private const float _minHandSpeed = 0.02f, _maxHandSpeed = 0.1f;
+    private const float _minHandSpeed = 5f, _maxHandSpeed = 30f, maxPickingDuration = 1f;
     private Vector3 _startHandPosition;
     private Product _targetProduct;
 
@@ -42,16 +42,17 @@ public class HandGrip : MonoBehaviour
     public void PickProduct(Product product)
     {
         _targetProduct = product;
-        StartCoroutine(Grab());
+        float startPickingTime = Time.time;
+        StartCoroutine(Grab(startPickingTime));
     }
 
     public void Unclench() => PickedProduct = null;
 
-    private IEnumerator Grab()
+    private IEnumerator Grab(float startTime)
     {
-        while(PickedProduct == null)
+        while (PickedProduct == null && Time.time < startTime + maxPickingDuration)
         {
-            _handController.position = Vector3.Lerp(_handController.position, _targetProduct.transform.position, _handSpeed);
+            _handController.position = Vector3.Lerp(_handController.position, _targetProduct.transform.position, _handSpeed * Time.deltaTime);
             yield return null;
         }
         StartCoroutine(ReturnHand());
@@ -62,7 +63,7 @@ public class HandGrip : MonoBehaviour
     {
         while (Vector3.Distance(_handController.transform.position, _startHandPosition) > 0.01f)
         {
-            _handController.position = Vector3.Lerp(_handController.position, _startHandPosition, _handSpeed);
+            _handController.position = Vector3.Lerp(_handController.position, _startHandPosition, _handSpeed * Time.deltaTime);
             yield return null;
         }
         Picked?.Invoke(PickedProduct);

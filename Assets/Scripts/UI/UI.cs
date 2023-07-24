@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    [SerializeField] private Animation _collectedAnimation;
     [SerializeField] private GameObject _missionView;
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _nextLevelButton;
@@ -31,14 +30,12 @@ public class UI : MonoBehaviour
 
     public void ShowPlayUI()
     {
-        _collectedAnimation.gameObject.SetActive(true);
         _missionView.SetActive(true);
         _playerInput.SetActive(true);
     }
 
     public void HidePlayUI()
     {
-        _collectedAnimation.gameObject.SetActive(false);
         _missionView.SetActive(false);
         _playerInput.SetActive(false);
     }
@@ -54,7 +51,4 @@ public class UI : MonoBehaviour
         _nextLevelButton.gameObject.SetActive(false);
         _levelPassedText.gameObject.SetActive(false);
     }
-
-    public void ShowCollectedText()
-        => _collectedAnimation.Play();
 }
