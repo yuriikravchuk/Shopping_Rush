@@ -10,7 +10,7 @@ namespace playerStateMachine
         [SerializeField] private Animator _animator;
         [SerializeField] private HandGrip _handGrip;
         [SerializeField] private Rig _rig;
-        [SerializeField] private Mission _mission;
+        [SerializeField] private MissionPresenter _mission;
         [SerializeField] private PlayerInput _productSelector;
 
         private void Awake()

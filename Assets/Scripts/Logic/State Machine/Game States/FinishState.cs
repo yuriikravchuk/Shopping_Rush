@@ -7,14 +7,14 @@ namespace gameStateMachine
     {
         private readonly UI _ui;
         private readonly GameObject _conveyor;
-        private readonly Transform _camera;
+        private readonly Animation _cameraAnimation;
         private readonly StateMachine _playerStateMachine;
 
-        public FinishState(UI ui, GameObject conveyor, Transform camera, StateMachine playerStateMachine)
+        public FinishState(UI ui, GameObject conveyor, Animation cameraAnimation, StateMachine playerStateMachine)
         {
             _ui = ui;
             _conveyor = conveyor;
-            _camera = camera;
+            _cameraAnimation = cameraAnimation;
             _playerStateMachine = playerStateMachine;
         }
 
@@ -30,7 +30,7 @@ namespace gameStateMachine
 
         public override void Enter()
         {
-            // move camera
+            _cameraAnimation.Play();
             _playerStateMachine.TrySwitchState<DanceState>();
             _ui.ShowFinishUI();
             _conveyor.SetActive(false);
@@ -38,7 +38,9 @@ namespace gameStateMachine
 
         public override void Exit()
         {
-            //move camera back
+
+            _cameraAnimation.clip.SampleAnimation(_cameraAnimation.gameObject, 0);
+            _cameraAnimation.Stop();
             _ui.HideFinishUI();
             _playerStateMachine.TrySwitchState<DefaultState>();
             _conveyor.SetActive(true);

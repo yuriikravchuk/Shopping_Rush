@@ -23,7 +23,6 @@ public class PlayerInput : MonoBehaviour, IPointerClickHandler
             if (product == null)
                 return;
 
-            Debug.Log(product.Type);
             ProductSelected?.Invoke(product);
         }
     }

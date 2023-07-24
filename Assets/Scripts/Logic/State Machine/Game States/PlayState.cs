@@ -7,10 +7,10 @@ namespace gameStateMachine
     {
         private readonly UI _ui;
         private readonly MissionGenerator _missionGenerator;
-        private readonly Mission _mission;
+        private readonly MissionPresenter _mission;
         private readonly GameObject _productsSpawner;
 
-        public PlayState(UI ui, GameObject productsSpawner, Mission mission)
+        public PlayState(UI ui, GameObject productsSpawner, MissionPresenter mission)
         {
             _ui = ui;
             _productsSpawner = productsSpawner;
@@ -30,7 +30,7 @@ namespace gameStateMachine
         public override void Enter()
         {
             _missionGenerator.GetMission(out ProductType type, out int count);
-            _mission.Init(type, count);
+            _mission.Set(type, count);
             _ui.ShowPlayUI();
             _productsSpawner.SetActive(true);
         }

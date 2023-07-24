@@ -7,9 +7,9 @@ namespace playerStateMachine
     {
         private readonly Animator _animator;
         private readonly HandGrip _handGrip;
-        private readonly Mission _mission;
+        private readonly MissionPresenter _mission;
 
-        public DefaultState(Animator animator, HandGrip handGrip, Mission mission)
+        public DefaultState(Animator animator, HandGrip handGrip, MissionPresenter mission)
         {
             _animator = animator;
             _handGrip = handGrip;
