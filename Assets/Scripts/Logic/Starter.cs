@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using gameStateMachine;
 using UnityEngine;
 
 public class Starter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private StateMachine _gameStateMachine;
+    [SerializeField] private UI _ui;
+    [SerializeField] private Mission _mission;
+    [SerializeField] private Cart _cart;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        _ui.PlayButtonClicked += () => _gameStateMachine.TrySwitchState<PlayState>();
+        _mission.Completed += () => _gameStateMachine.TrySwitchState<FinishState>();
+        _ui.NextLevelButtonClicked += () => _gameStateMachine.TrySwitchState<PlayState>();
+        _cart.ProductCollected += _mission.OnProductCollected;
     }
 }

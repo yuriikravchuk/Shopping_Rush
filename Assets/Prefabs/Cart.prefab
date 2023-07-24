@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1330120300882971440}
   - component: {fileID: 1330120300882971443}
-  - component: {fileID: 1330120300882971441}
   m_Layer: 0
   m_Name: Cart
   m_TagString: Untagged
@@ -47,22 +46,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.45668474, z: 0.5759369}
   m_Center: {x: 0, y: 0.2346568, z: 0.0010940433}
---- !u!54 &1330120300882971441
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330120300882971442}
-  serializedVersion: 2
-  m_Mass: 0.1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &1330120301096011052
 PrefabInstance:
   m_ObjectHideFlags: 0

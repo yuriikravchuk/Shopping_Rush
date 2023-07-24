@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
+  _rigidbody: {fileID: 4339765139483116758}
 --- !u!54 &4339765139483116758
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -122,7 +123,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 24.48
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0

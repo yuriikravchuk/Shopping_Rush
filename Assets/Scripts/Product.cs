@@ -1,9 +1,14 @@
 using UnityEngine;
 
-public class Product : MonoBehaviour
+namespace product
 {
-    [SerializeField] private ProductType _type;
-    public enum ProductType {Peach, Apple, Pear}
+    public partial class Product : MonoBehaviour
+    {
+        [SerializeField] private ProductType _type;
+        [SerializeField] private Rigidbody _rigidbody;
 
-    public ProductType Type => _type;
+        public ProductType Type => _type;
+
+        public void AddForce(Vector3 force) => _rigidbody.AddForce(force);
+    }
 }

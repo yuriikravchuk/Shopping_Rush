@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using product;
 using UnityEngine;
 
-public class MissionGenerator : MonoBehaviour
+public class MissionGenerator
 {
-    // Start is called before the first frame update
-    void Start()
+    private readonly int _minProductsCount;
+    private readonly int _maxProductsCount;
+
+    public MissionGenerator(int minProductsCount, int maxProductsCount)
     {
-        
+        _minProductsCount = Mathf.Max(minProductsCount, 1);
+        _maxProductsCount = Mathf.Max(maxProductsCount, _minProductsCount);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetMission(out ProductType type, out int count)
     {
-        
+        type = Tools.GetRandomEnumValue<ProductType>();
+        count = Random.Range(_minProductsCount, _maxProductsCount);
     }
 }

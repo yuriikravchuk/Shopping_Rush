@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour 
 {
-    [SerializeField] private List<State> _states;
+    private IReadOnlyList<State> _states;
     private State _currentState;
 
-
-    private void Awake()
+    public void Init(IReadOnlyList<State> states, State startState)
     {
-        //_currentState = FindState<MenuState>();
+        _states = states;
+        _currentState = startState;
         _currentState.Enter();
     }
 
@@ -30,5 +31,5 @@ public class StateMachine : MonoBehaviour
     }
 
     private State FindState<T>() 
-        => _states.Find(x => x is T) ?? throw new InvalidOperationException();
+        => _states.FirstOrDefault(x => x is T) ?? throw new InvalidOperationException();
 }

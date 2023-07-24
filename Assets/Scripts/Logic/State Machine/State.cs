@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public abstract class State : MonoBehaviour
+﻿public abstract class State
 {
     public abstract void Enter();
 
@@ -10,4 +8,3 @@ public abstract class State : MonoBehaviour
 
     public abstract bool CanTransit(State state);
 }
-

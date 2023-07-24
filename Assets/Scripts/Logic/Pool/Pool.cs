@@ -1,28 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace pool
 {
     public class Pool<T>: IObjectProvider<T> where T : Behaviour
 	{
-		private readonly T _prefab;
 		private readonly List<T> _objects;
 		private readonly Transform _parent;
 
-		public Pool(T prefab, Transform parent = null){
-			_prefab = prefab;
-			_objects = new List<T>();
-			_parent = parent ?? new GameObject(typeof(Pool<T>).Name).transform;
-		}
+		public Pool(Transform parent){
+            _objects = new List<T>();
+			_parent = parent;
+        }
 
-		public T Get()
-		{
-			T result = _objects.Find(item => item.isActiveAndEnabled == false) ?? Create();
-			result.gameObject.SetActive(true);
-			return result;
-		}
+		public T Get(Func<T, bool> predicate = null)
+        {
+            T element = _objects.Where((predicate ?? (item => true)))
+				.FirstOrDefault(item => item.isActiveAndEnabled == false);
 
-		public void ReturnAll()
+			element?.gameObject.SetActive(true);
+            return element;
+        }
+
+        public void ReturnAll()
 		{
 			foreach(var element in _objects)
 				element.gameObject.SetActive(false);
@@ -31,16 +33,16 @@ namespace pool
 		public void Clear()
         {
 			foreach (var element in _objects)
-				Object.Destroy(element);
+                UnityEngine.Object.Destroy(element.gameObject);
 
 			_objects.Clear();
 		}
 
-		private T Create()
+		public void Add(T element)
 		{
-			T elment = Object.Instantiate(_prefab, _parent);
-			_objects.Add(elment);
-			return elment;
-		}
+            _objects.Add(element);
+			//element.gameObject.SetActive(false);
+			element.transform.SetParent(_parent);
+        }
     }
 }

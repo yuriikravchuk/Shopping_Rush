@@ -1,18 +1,24 @@
-using System.Collections;
+using product;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Cart : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public event Action<ProductType> ProductCollected;
 
-    // Update is called once per frame
-    void Update()
+    private List<Product> _products;
+
+    private void Start() => _products = new List<Product>();
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        Product product = other.GetComponent<Product>();
+
+        if (product == null || _products.Contains(product))
+            return;
+
+        _products.Add(product);
+        ProductCollected.Invoke(product.Type);
     }
 }

@@ -1,4 +1,6 @@
-﻿public interface IObjectProvider<T>
+﻿using System;
+
+public interface IObjectProvider<T>
 {
-	T Get();
+	T Get(Func<T, bool> predicate = null);
 }
