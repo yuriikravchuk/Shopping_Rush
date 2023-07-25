@@ -11,7 +11,7 @@ public class HandGrip : MonoBehaviour
     public Product PickedProduct { get; private set; }
     public event Action<Product> Picked;
 
-    private const float _minHandSpeed = 5f, _maxHandSpeed = 30f, maxPickingDuration = 1f;
+    private const float _minHandSpeed = 5f, _maxHandSpeed = 30f, maxPickingDuration = 0.6f;
     private Vector3 _startHandPosition;
     private Product _targetProduct;
 
@@ -41,7 +41,7 @@ public class HandGrip : MonoBehaviour
 
     public void PickProduct(Product product)
     {
-        if (_targetProduct != null)
+        if (_targetProduct != null || PickedProduct != null)
             return;
 
         _targetProduct = product;
@@ -49,11 +49,7 @@ public class HandGrip : MonoBehaviour
         StartCoroutine(Grab(startPickingTime));
     }
 
-    public void Unclench()
-    {
-        PickedProduct = null;
-        _targetProduct = null;
-    }
+    public void Unclench() => PickedProduct = null;
 
     private IEnumerator Grab(float startTime)
     {
@@ -62,6 +58,8 @@ public class HandGrip : MonoBehaviour
             _handController.position = Vector3.Lerp(_handController.position, _targetProduct.transform.position, _handSpeed * Time.deltaTime);
             yield return null;
         }
+
+        _targetProduct = null;
         StartCoroutine(ReturnHand());
         yield break;
     }
