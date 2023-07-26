@@ -13,6 +13,6 @@ public class ProductReleaser : MonoBehaviour
     {
         Product product = _handGrip.PickedProduct;
         _handGrip.Unclench();
-        product.AddForce(_handGrip.transform.up * _throwForce);
+        product.Rigidbody.AddForce(_handGrip.transform.up * _throwForce);
     }
 }

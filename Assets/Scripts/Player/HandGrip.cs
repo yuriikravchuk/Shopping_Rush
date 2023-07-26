@@ -28,15 +28,7 @@ public class HandGrip : MonoBehaviour
         if (product == null || product != _targetProduct)
             return;
 
-        PickedProduct = product;
-    }
-
-    private void Update()
-    {
-        if(PickedProduct == null) 
-            return;
-
-        PickedProduct.transform.position = transform.position;
+        Clench(product);
     }
 
     public void PickProduct(Product product)
@@ -46,12 +38,26 @@ public class HandGrip : MonoBehaviour
 
         _targetProduct = product;
         float startPickingTime = Time.time;
-        StartCoroutine(Grab(startPickingTime));
+        StartCoroutine(MoveHandToProduct(startPickingTime));
     }
 
-    public void Unclench() => PickedProduct = null;
+    public void Unclench()
+    {
+        PickedProduct.transform.SetParent(null);
+        PickedProduct.Rigidbody.constraints = RigidbodyConstraints.None;
+        PickedProduct = null;
+    }
 
-    private IEnumerator Grab(float startTime)
+    private void Clench(Product product)
+    {
+        PickedProduct = product;
+        PickedProduct.transform.position = transform.position;
+        PickedProduct.transform.SetParent(transform);
+        PickedProduct.Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        PickedProduct.Rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+    }
+
+    private IEnumerator MoveHandToProduct(float startTime)
     {
         while (PickedProduct == null && Time.time < startTime + maxPickingDuration)
         {

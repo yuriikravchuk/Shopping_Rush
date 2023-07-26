@@ -19,7 +19,6 @@ public class ProductsSpawner : MonoBehaviour
 
     private void OnEnable() => _lastSpawnedTime = 0;
 
-
     private void FixedUpdate() => TrySpawn();
 
     private void TrySpawn()
@@ -28,7 +27,8 @@ public class ProductsSpawner : MonoBehaviour
         {
             ProductType productType = Tools.GetRandomEnumValue<ProductType>();
             Product product = _provider.Get(item => item.Type == productType);
-            product.ResetForces();
+            product.Rigidbody.velocity = Vector3.zero;
+            product.Rigidbody.angularVelocity = Vector3.zero;
             product.transform.position = transform.position;
             _lastSpawnedTime = Time.time;
         }
